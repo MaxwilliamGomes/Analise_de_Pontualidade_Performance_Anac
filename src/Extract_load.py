@@ -5,6 +5,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import glob
+from urllib.parse import quote
 
 
 # import das minhas variáveis de ambiente
@@ -18,7 +19,8 @@ DB_USER = os.getenv('DB_USER_PROD')
 DB_PASS = os.getenv('DB_PASS_PROD')
 DB_SCHEMA = os.getenv('DB_SCHEMA_PROD')
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DB_PASS_ENCODED = quote(DB_PASS)
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS_ENCODED}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 engine = create_engine(DATABASE_URL)
 
